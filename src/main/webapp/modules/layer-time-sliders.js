@@ -46,6 +46,9 @@ define([ "jquery", "message-bus", "layout", "botonera", "map", "jquery-ui" ], fu
 						});
 					}else{ //Programatic change
 						//alert('programatic');
+						var date = timestamps[ui.value];
+						divTimeSliderLabel.text(date);
+						
 					};
 					
 				},
