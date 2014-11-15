@@ -61,7 +61,7 @@ public class Output extends OutputDescriptor {
 
 	}
 
-	public ArrayList<ArrayList<String>> getData(String objectid) {
+	public ArrayList<ArrayList<String>> getData(String objectid) throws SQLException {
 		// String[][] ret = {{"1","2","3"},{"2","3","4"},{"2","4","5"}};
 		if (this.values == null) {
 			this.cargarDatos(objectid);
@@ -76,7 +76,7 @@ public class Output extends OutputDescriptor {
 
 	}
 
-	public List<String> getSeries(String objectid) {
+	public List<String> getSeries(String objectid) throws SQLException {
 		// String[] ret = {"TF","OT","OTF"};
 		if (this.series == null) {
 			this.cargarDatos(objectid);
@@ -94,7 +94,7 @@ public class Output extends OutputDescriptor {
 		this.series.add(string);
 	}
 
-	public List<String> getLabels(String objectid) {
+	public List<String> getLabels(String objectid) throws SQLException {
 		if (this.labels == null) {
 			this.cargarDatos(objectid);
 		}
@@ -190,7 +190,7 @@ public class Output extends OutputDescriptor {
 		return "MR";
 	}
 
-	private void cargarDatos(String objectid) {
+	private void cargarDatos(String objectid) throws SQLException {
 		try {
 			InitialContext context = new InitialContext();
 			DataSource dataSource = (DataSource) context
@@ -203,19 +203,19 @@ public class Output extends OutputDescriptor {
 			// "WHERE "+this.getDivision_field_id()+" = '"+objectid+"' GROUP BY "+this.getDivision_field_id()+",class");
 
 					.executeQuery("SELECT "
-//							+ this.getDivision_field_id()
+							// + this.getDivision_field_id()
 							+ "division_id "
 							+ ",class,array_agg(fecha_result) labels,array_agg(ha) data_values FROM "
-							+ "(SELECT " 
-//							+ this.getDivision_field_id()
-							+ "division_id "							
-							+ ",class,fecha_result, ha " + "FROM "
-							+ this.getTable_name_data() + " " + "WHERE "
-//							+ this.getDivision_field_id()
-							+ "division_id "
-							+ " = '" + objectid
-							+ "'" + "ORDER BY fecha_result asc"
-							+ " ) foo	GROUP BY "+ "division_id " //+ this.getDivision_field_id()
+							+ "(SELECT "
+							// + this.getDivision_field_id()
+							+ "division_id " + ",class,fecha_result, ha "
+							+ "FROM " + this.getTable_name_data()
+							+ " "
+							+ "WHERE "
+							// + this.getDivision_field_id()
+							+ "division_id " + " = '" + objectid + "'"
+							+ "ORDER BY fecha_result asc" + " ) foo	GROUP BY "
+							+ "division_id " // + this.getDivision_field_id()
 							+ ",class ");
 			this.series = new ArrayList<String>();
 			this.labels = new ArrayList<String>();
@@ -233,11 +233,12 @@ public class Output extends OutputDescriptor {
 			statement.close();
 			connection.close();
 		} catch (NamingException e) {
-			e.getMessage();
+			//e.getMessage();
 			// return null;
-			// throw new SQLException("Cannot find the database", e);
+			 throw new SQLException("Cannot find the database", e);
 		} catch (PSQLException e) {
 			e.getMessage();
+			throw new SQLException(e);
 			// TODO MAnejar errores sql, no conecta, permiso denegado, loguear
 			// estos errores
 		}

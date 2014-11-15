@@ -3,6 +3,7 @@ package org.fao.unredd.portal;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -36,7 +37,12 @@ public class IndicatorDataServlet extends HttpServlet {
                             (layer.getOutput(
                                     indicatorId)));
                     resp.setContentType(chartGenerator.getContentType());
-                    chartGenerator.generate(objectId, resp.getWriter());
+                    try {
+						chartGenerator.generate(objectId, resp.getWriter());
+					} catch (SQLException e) {
+						 throw new StatusServletException(400,
+				                    "Database error"+e.getMessage());
+					}
                     resp.flushBuffer();
                 } else {
                     throw new StatusServletException(400, "The layer "

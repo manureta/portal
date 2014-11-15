@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.sql.SQLException;
 import java.util.Iterator;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class ChartGenerator {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void generate(String objectId, Writer writer) throws IOException {
+	public void generate(String objectId, Writer writer) throws IOException, SQLException {
 		VelocityEngine engine = new VelocityEngine();
 		engine.setProperty("resource.loader", "class");
 		engine.setProperty("class.resource.loader.class",
