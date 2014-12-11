@@ -28,14 +28,13 @@
 
       $(document).ready(function() {
         var colors = Highcharts.getOptions().colors;
-        // console.log(colors); // DEBUG
+        console.log(colors); // DEBUG
 
         // FACET custom colors
         var fccColors = {
-          atlanticForest: "#005700",
-          chacoWoodlands: "#01E038",
-          nonForest: "#FFFF9C",
-          water: "#3938FE"
+          ot: "#e0e06f",
+          otf: "#00ab00",
+          tf: "#005500"
         };
 
         $('#title').text(gup('name').toLowerCase());
@@ -87,6 +86,9 @@
                 groupZPadding: 10
             }
         },
+        colors:["#e0e06f",
+            "#00ab00",
+            "#005500"],
         series: [
         	#foreach( $data in $datas )
         	{
@@ -191,7 +193,7 @@
   <body>
     <div id="top">
       <div id="print_link">
-        <a href="#print" title="*** print_this_chart ***" class="print" onClick="window.print();return false;"><img src="http://www.rdc-snsf.org/images/Printer.png"></a>
+        <a href="#print" title="*** print_this_chart ***" class="print" onClick="window.print();return false;"><img src="static/img/printer.png"></a>
       </div>
       <div id="title"></div>
     </div>

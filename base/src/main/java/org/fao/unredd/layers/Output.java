@@ -181,7 +181,7 @@ public class Output extends OutputDescriptor {
 	}
 
 	public String getHover() {
-		return "hover";
+		return "UMSEF";
 	}
 
 	public String getFooter() {
@@ -211,7 +211,7 @@ public class Output extends OutputDescriptor {
 							+ " "
 							+ "WHERE "
 							// + this.getDivision_field_id()
-							+ "objectid " + " = '" + objectid + "'"
+							+ "division_id " + " = '" + objectid + "' "
 							+ "ORDER BY fecha_result asc" + " ) foo	GROUP BY "
 							+ "division_id " // + this.getDivision_field_id()
 							+ ",class ");
