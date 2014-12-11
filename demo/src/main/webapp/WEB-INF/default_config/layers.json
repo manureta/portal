@@ -96,7 +96,8 @@
 			"visible" : true,
 			"sourceLink" : "http://localhost",
 			"sourceLabel" : "WRI",
-			"queryable" : true
+			"queryable" : true,
+			"wmsTime" : "2006-01-01T00:00,2002-01-01T00:00,1998-01-01T00:00"			
 		}
 	],
 
